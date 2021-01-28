@@ -1,0 +1,107 @@
+{
+  "target": "bmv2",
+  "p4info": "build/basic.p4.p4info.txt",
+  "bmv2_json": "build/basic.json",
+  "table_entries": [
+    {
+      "table": "MyIngress.vSwitchNumberMatching_exact",
+      "default_action": true,
+      "action_name": "MyIngress.dropAction",
+      "action_params": { }
+    },
+    {
+      "table": "MyIngress.vSwitchNumberMatching_exact",
+      "match": {
+        "standard_metadata.ingress_port": [1]
+      },
+      "action_name": "MyIngress.setVSwitchNumber",
+      "action_params": {
+        "vSwitchNumberFromTable": 1
+      }
+    },
+    {
+      "table": "MyIngress.vSwitchNumberMatching_exact",
+      "match": {
+        "standard_metadata.ingress_port": [2]
+      },
+      "action_name": "MyIngress.setVSwitchNumber",
+      "action_params": {
+        "vSwitchNumberFromTable": 1
+      }
+    },
+    {
+      "table": "MyIngress.vSwitchNumberMatching_exact",
+      "match": {
+        "standard_metadata.ingress_port": [3]
+      },
+      "action_name": "MyIngress.setVSwitchNumber",
+      "action_params": {
+        "vSwitchNumberFromTable": 2
+      }
+    },
+    {
+      "table": "MyIngress.vSwitchNumberMatching_exact",
+      "match": {
+        "standard_metadata.ingress_port": [4]
+      },
+      "action_name": "MyIngress.setVSwitchNumber",
+      "action_params": {
+        "vSwitchNumberFromTable": 2
+      }
+    },
+    {
+      "table": "MyIngress.ipv4NextHopLPM_lmp",
+      "default_action": true,
+      "action_name": "MyIngress.dropAction",
+      "action_params": { }
+    },
+    {
+      "table": "MyIngress.ipv4NextHopLPM_lmp",
+      "match": {
+        "vSwitchNumber": [1],
+        "hdr.ipv4.dstAddr": ["10.0.1.1", 32]
+      },
+      "action_name": "MyIngress.ipv4Forward",
+      "action_params": {
+        "dstAddr": "08:00:00:00:01:11",
+        "port": 1
+      }
+    },
+    {
+      "table": "MyIngress.ipv4NextHopLPM_lmp",
+      "match": {
+        "vSwitchNumber": [1],
+        "hdr.ipv4.dstAddr": ["10.0.2.2", 32]
+      },
+      "action_name": "MyIngress.ipv4Forward",
+      "action_params": {
+        "dstAddr": "08:00:00:00:00:00",
+        "port": 2
+      }
+    },
+    {
+      "table": "MyIngress.ipv4NextHopLPM_lmp",
+      "match": {
+        "vSwitchNumber": [2],
+        "hdr.ipv4.dstAddr": ["10.0.1.1", 32]
+      },
+      "action_name": "MyIngress.ipv4Forward",
+      "action_params": {
+        "dstAddr": "08:00:00:00:00:00",
+        "port": 3
+      }
+    },
+    {
+      "table": "MyIngress.ipv4NextHopLPM_lmp",
+      "match": {
+        "vSwitchNumber": [2],
+        "hdr.ipv4.dstAddr": ["10.0.2.2", 32]
+      },
+      "action_name": "MyIngress.ipv4Forward",
+      "action_params": {
+        "dstAddr": "08:00:00:00:02:22",
+        "port": 4
+      }
+    }
+  ]
+}
